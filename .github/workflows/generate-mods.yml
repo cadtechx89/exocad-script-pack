@@ -1,0 +1,89 @@
+name: Generate ExoCad Mods
+
+on:
+  repository_dispatch:
+    types: [generate-mods]
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'JSON конфигурация генерации'
+        required: true
+        default: '{"modTypes":["brush"],"userSettings":{"brush":{"example":"0.5"}}}'
+      jobId:
+        description: 'ID задачи'
+        required: true
+        default: 'manual-job-1'
+      userId:
+        description: 'Инициатор'
+        required: true
+        default: 'manual'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend deps
+        run: |
+          cd backend
+          npm ci
+
+      - name: Parse inputs
+        id: parse
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "config=${{ github.event.client_payload.config }}" >> $GITHUB_OUTPUT
+            echo "jobId=${{ github.event.client_payload.jobId }}" >> $GITHUB_OUTPUT
+            echo "userId=${{ github.event.client_payload.userId }}" >> $GITHUB_OUTPUT
+          else
+            echo "config=${{ inputs.config }}" >> $GITHUB_OUTPUT
+            echo "jobId=${{ inputs.jobId }}" >> $GITHUB_OUTPUT
+            echo "userId=${{ inputs.userId }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run generator
+        run: |
+          cd backend
+            node src/cli-generator.js \
+              --config '${{ steps.parse.outputs.config }}' \
+              --job-id '${{ steps.parse.outputs.jobId }}' \
+              --user '${{ steps.parse.outputs.userId }}'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mods-${{ steps.parse.outputs.jobId }}
+          path: backend/output/*.zip
+          retention-days: 5
+
+      - name: Create release
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: mods-${{ steps.parse.outputs.jobId }}
+          name: "ExoCad Mods ${{ steps.parse.outputs.jobId }}"
+          files: backend/output/*.zip
+          body: |
+            Автогенерация модов
+            Job: ${{ steps.parse.outputs.jobId }}
+            User: ${{ steps.parse.outputs.userId }}
+            Config:
+            ```
+            ${{ steps.parse.outputs.config }}
+            ```
+          prerelease: true
+
+      - name: Summary
+        run: |
+          echo "Release URL: ${{ steps.release.outputs.url }}"
