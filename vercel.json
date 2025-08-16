@@ -1,5 +1,13 @@
-"functions": {
-  "frontend/pages/api/**/*.js": {
-    "runtime": "nodejs18.x"
+{
+  "version": 2,
+  "name": "exocad-script-pack",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "framework": "nextjs",
+  "functions": {
+    "frontend/pages/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
   }
 }
