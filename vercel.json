@@ -1,5 +1,5 @@
 "functions": {
-  "frontend/pages/api/**/*.js": {  // ✅ Правильный путь
+  "frontend/pages/api/**/*.js": {
     "runtime": "nodejs18.x"
   }
 }
