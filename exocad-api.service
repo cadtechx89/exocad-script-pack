@@ -1,0 +1,15 @@
+[Unit]
+Description=ExoCAD Script Pack API
+After=network.target
+
+[Service]
+Type=simple
+User=yourusername
+WorkingDirectory=/home/yourusername/exocad-backend
+Environment=PATH=/home/yourusername/exocad-backend/venv/bin
+ExecStart=/home/yourusername/exocad-backend/venv/bin/python -m uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

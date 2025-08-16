@@ -1,0 +1,30 @@
+# /etc/nginx/sites-available/exocad-api
+server {
+    listen 80;
+    server_name your-domain.com;  # или ваш IP
+
+    # Rate limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/m;
+    
+    location / {
+        limit_req zone=api burst=5;
+        
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # CORS headers
+        add_header Access-Control-Allow-Origin "https://your-frontend-domain.vercel.app";
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type";
+    }
+    
+    # Статичные файлы (downloads)
+    location /downloads/ {
+        alias /home/yourusername/exocad-backend/uploads/;
+        expires 1h;
+        add_header Cache-Control "public, immutable";
+    }
+}

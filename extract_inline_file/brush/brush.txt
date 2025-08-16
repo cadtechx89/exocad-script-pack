@@ -1,0 +1,8 @@
+Mod Type: brush
+Generated: 2025-08-14T13:07:36.831Z
+User: tester
+Random: 21ecd9e104573226
+Settings:
+{
+  "diameter": "0.7"
+}

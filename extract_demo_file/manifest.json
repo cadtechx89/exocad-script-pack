@@ -1,0 +1,10 @@
+{
+  "jobId": "demo-file",
+  "generatedAt": "2025-08-14T11:43:23.301Z",
+  "modTypes": [
+    "brush",
+    "crown"
+  ],
+  "count": 2,
+  "user": "tester"
+}

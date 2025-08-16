@@ -1,0 +1,1 @@
+{"modTypes":["brush"]}  node backend\src\mod_generator.js --config=cfg_brush.json --job-id=inline-direct-ok --user=tester

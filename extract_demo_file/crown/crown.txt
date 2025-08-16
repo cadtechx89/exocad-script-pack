@@ -1,0 +1,8 @@
+Mod Type: crown
+Generated: 2025-08-14T11:43:23.300Z
+User: tester
+Random: a09a0cd6078bc2b3
+Settings:
+{
+  "shade": "A2"
+}

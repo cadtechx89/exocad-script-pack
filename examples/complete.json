@@ -1,0 +1,20 @@
+{
+  "name": "Complete Package",
+  "description": "All modifications in one package",
+  "modTypes": ["brush_tools", "database_config", "app_settings"],
+  "version": "1.1.1",
+  "settings": {
+    "brush": {
+      "size": 2.0,
+      "strength": 0.5,
+      "pressure": 15.0
+    },
+    "database": {
+      "naming": "%f_%l_%p-%d"
+    },
+    "editor": {
+      "meshEditing": true,
+      "advancedTools": true
+    }
+  }
+}

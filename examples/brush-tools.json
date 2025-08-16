@@ -1,0 +1,15 @@
+{
+  "name": "Brush Tools Optimizer",
+  "description": "Optimize brush settings for better sculpting experience",
+  "modTypes": ["brush_tools"],
+  "version": "1.1.1",
+  "settings": {
+    "FreeformBrushSize": 2.0,
+    "FreeformStrength": 0.5,
+    "OverpressCutoff": 15.0
+  },
+  "compatibility": {
+    "exocad_version": "3.0+",
+    "os": ["Windows 10", "Windows 11"]
+  }
+}

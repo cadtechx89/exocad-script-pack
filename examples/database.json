@@ -1,0 +1,11 @@
+{
+  "name": "Database Configuration",
+  "description": "Enhanced file naming and database optimization",
+  "modTypes": ["database_config"],
+  "version": "1.1.1",
+  "settings": {
+    "fileNaming": "%f_%l_%p-%d",
+    "autoBackup": true,
+    "compressionLevel": "medium"
+  }
+}

@@ -1,0 +1,8 @@
+Mod Type: brush
+Generated: 2025-08-14T11:43:23.298Z
+User: tester
+Random: 14c7aab2bfd892bf
+Settings:
+{
+  "d": "0.6"
+}
